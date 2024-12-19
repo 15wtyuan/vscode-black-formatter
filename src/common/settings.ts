@@ -17,6 +17,7 @@ export interface ISettings {
     interpreter: string[];
     importStrategy: string;
     showNotifications: string;
+    useTabs: boolean,
 }
 
 export function getServerTransport(namespace: string, uri: Uri): TransportKind {
@@ -134,6 +135,7 @@ export async function getWorkspaceSettings(
         interpreter: resolveVariables(interpreter, 'interpreter', workspace),
         importStrategy: config.get<string>('importStrategy', 'useBundled'),
         showNotifications: config.get<string>('showNotifications', 'off'),
+        useTabs: config.get<boolean>('useTabs', true),
     };
     traceInfo(
         `Workspace settings for ${workspace.uri.fsPath} (client side): ${JSON.stringify(workspaceSetting, null, 4)}`,
@@ -165,6 +167,7 @@ export async function getGlobalSettings(namespace: string, includeInterpreter?: 
         interpreter: interpreter ?? [],
         importStrategy: getGlobalValue<string>(config, 'importStrategy') ?? 'useBundled',
         showNotifications: getGlobalValue<string>(config, 'showNotifications') ?? 'off',
+        useTabs: getGlobalValue<boolean>(config, 'useTabs') ?? true,
     };
     traceInfo(`Global settings (client side): ${JSON.stringify(setting, null, 4)}`);
     return setting;
@@ -178,6 +181,7 @@ export function checkIfConfigurationChanged(e: ConfigurationChangeEvent, namespa
         `${namespace}.importStrategy`,
         `${namespace}.showNotifications`,
         `${namespace}.serverTransport`,
+        `${namespace}.useTabs`,
     ];
     const changed = settings.map((s) => e.affectsConfiguration(s));
     return changed.includes(true);

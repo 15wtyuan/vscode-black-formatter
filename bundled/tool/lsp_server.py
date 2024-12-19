@@ -199,6 +199,12 @@ def _formatting_helper(
             edits = edit_utils.get_text_edits(
                 document.source, new_source, lsp.PositionEncodingKind.Utf16
             )
+
+            # deep copy here to prevent accidentally updating global settings.
+            settings = copy.deepcopy(_get_settings_by_document(document))
+            if edits and settings["useTabs"]:
+                # 替换文件中的空格为tab
+                LSP_SERVER.lsp.send_request('executeVscodeCommandLater', "editor.action.indentationToTabs")
             if edits:
                 # NOTE: If you provide [] array, VS Code will clear the file of all contents.
                 # To indicate no changes to file return None.
@@ -355,6 +361,7 @@ def _get_global_defaults():
         "args": GLOBAL_SETTINGS.get("args", []),
         "importStrategy": GLOBAL_SETTINGS.get("importStrategy", "useBundled"),
         "showNotifications": GLOBAL_SETTINGS.get("showNotifications", "off"),
+        "useTabs": GLOBAL_SETTINGS.get("useTabs", True),
     }
 
 

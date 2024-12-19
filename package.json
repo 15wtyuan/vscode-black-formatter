@@ -170,6 +170,12 @@
                     ],
                     "scope": "window",
                     "type": "string"
+                },
+                "black-formatter.useTabs": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "replace tabs with spaces",
+                    "scope": "resource"
                 }
             }
         },
