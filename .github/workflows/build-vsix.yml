@@ -15,7 +15,7 @@ jobs:
         with:
           node_version: 18.17.1
 
-      - name: Build VSIX
+      - name: Upload VSIX
         uses: ./.github/actions/build-vsix
         with:
-          node_version: ${{ env.NODE_VERSION}}
+          node_version: 18.17.1
