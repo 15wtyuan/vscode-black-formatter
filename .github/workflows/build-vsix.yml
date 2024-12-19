@@ -1,0 +1,21 @@
+name: Build VSIX
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build VSIX
+        uses: ./.github/actions/build-vsix
+        with:
+          node_version: 18.17.1
+
+      - name: Upload VSIX
+        uses: ./.github/actions/build-vsix
+        with:
+          node_version: 18.17.1
