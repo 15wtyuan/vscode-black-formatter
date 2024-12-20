@@ -100,6 +100,8 @@ VERSION_LOOKUP: Dict[str, Tuple[int, int, int]] = {}
 # Formatting features start here
 # **********************************************************
 
+DID_CHANGE = False
+
 
 @LSP_SERVER.feature(lsp.TEXT_DOCUMENT_FORMATTING)
 def formatting(params: lsp.DocumentFormattingParams) -> list[lsp.TextEdit] | None:
@@ -157,6 +159,21 @@ def ranges_formatting(
         return _formatting_helper(document)
 
 
+@LSP_SERVER.feature(lsp.TEXT_DOCUMENT_DID_CHANGE)
+def didChange(params: lsp.DocumentFormattingParams) -> list[lsp.TextEdit] | None:
+    global DID_CHANGE
+    if DID_CHANGE:
+        document = LSP_SERVER.workspace.get_text_document(params.text_document.uri)
+        settings = copy.deepcopy(_get_settings_by_document(document))
+        if settings["useTabs"]:
+            # 替换文件中的空格为tab
+            LSP_SERVER.lsp.send_request(
+                "executeVscodeCommand", "editor.action.indentationToTabs"
+            )
+        DID_CHANGE = False
+    return None
+
+
 def is_python(code: str, file_path: str) -> bool:
     """Ensures that the code provided is python."""
     try:
@@ -201,11 +218,9 @@ def _formatting_helper(
             )
 
             # deep copy here to prevent accidentally updating global settings.
-            settings = copy.deepcopy(_get_settings_by_document(document))
-            if edits and settings["useTabs"]:
-                # 替换文件中的空格为tab
-                LSP_SERVER.lsp.send_request('executeVscodeCommandLater', "editor.action.indentationToTabs")
             if edits:
+                global DID_CHANGE
+                DID_CHANGE = True
                 # NOTE: If you provide [] array, VS Code will clear the file of all contents.
                 # To indicate no changes to file return None.
                 return edits

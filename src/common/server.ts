@@ -125,10 +125,8 @@ export async function restartServer(
     }
     await newLSClient.setTrace(getLSClientTraceLevel(outputChannel.logLevel, env.logLevel));
 
-    newLSClient.onRequest('executeVscodeCommandLater', (params: any) => {
-        setTimeout(() => {
-            commands.executeCommand(params);
-        }, 10);
+    newLSClient.onRequest('executeVscodeCommand', (params: any) => {
+        commands.executeCommand(params);
     });
     return newLSClient;
 }
