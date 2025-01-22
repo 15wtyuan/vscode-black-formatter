@@ -8,6 +8,8 @@ This extension includes support for all [actively supported versions](https://de
 
 For more information on the Black formatter, see https://black.readthedocs.io/en/stable/.
 
+Fork: 添加了支持使用制表符的设置
+
 ## Usage and Features
 
 The Black extension for Visual Studio Code provides formatting support for your Python files. Check out the [Settings section](#settings) for more details on how to customize the extension.
