@@ -170,6 +170,7 @@ def didChange(params: lsp.DocumentFormattingParams) -> list[lsp.TextEdit] | None
             LSP_SERVER.lsp.send_request(
                 "executeVscodeCommand", "editor.action.indentationToTabs"
             )
+            log_to_output("indentationToTabs command executed (=^･ω･^=) (=⌒‿‿⌒=) (ฅ^•ω•^ฅ).")
         DID_CHANGE = False
     return None
 
