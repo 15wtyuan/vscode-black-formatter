@@ -1,5 +1,7 @@
 # Formatter extension for Visual Studio Code using the Black formatter
 
+> Fork: 添加了支持使用制表符的设置
+
 A Visual Studio Code extension with support for the Black formatter. The extension ships with `black=24.8.0`.
 
 > Note: The minimum version of Black this extension supports is `22.3.0`.
@@ -7,8 +9,6 @@ A Visual Studio Code extension with support for the Black formatter. The extensi
 This extension includes support for all [actively supported versions](https://devguide.python.org/#status-of-python-branches) of the Python language.
 
 For more information on the Black formatter, see https://black.readthedocs.io/en/stable/.
-
-Fork: 添加了支持使用制表符的设置
 
 ## Usage and Features
 
