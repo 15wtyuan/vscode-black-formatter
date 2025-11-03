@@ -9,7 +9,6 @@ import {
     LanguageClientOptions,
     RevealOutputChannelOn,
     ServerOptions,
-    TransportKind,
 } from 'vscode-languageclient/node';
 import { DEBUG_SERVER_SCRIPT_PATH, SERVER_SCRIPT_PATH } from './constants';
 import { traceError, traceInfo, traceVerbose } from './logging';
@@ -80,12 +79,12 @@ export async function restartServer(
     serverId: string,
     serverName: string,
     outputChannel: LogOutputChannel,
-    lsClient?: LanguageClient,
+    oldLsClient?: LanguageClient,
 ): Promise<LanguageClient | undefined> {
-    if (lsClient) {
+    if (oldLsClient) {
         traceInfo(`Server: Stop requested`);
         try {
-            await lsClient.stop();
+            await oldLsClient.stop();
         } catch (ex) {
             traceError(`Server: Stop failed: ${ex}`);
         }

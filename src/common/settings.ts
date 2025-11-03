@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-import { ConfigurationChangeEvent, ConfigurationScope, Uri, WorkspaceConfiguration, WorkspaceFolder } from 'vscode';
+import { ConfigurationChangeEvent, Uri, WorkspaceConfiguration, WorkspaceFolder } from 'vscode';
 import { getInterpreterDetails } from './python';
 import { getConfiguration, getWorkspaceFolders } from './vscodeapi';
 import { traceError, traceInfo, traceLog, traceWarn } from './logging';
 import { EXTENSION_ID } from './constants';
 import { TransportKind } from 'vscode-languageclient/node';
-import { trace } from 'console';
+import { getInterpreterFromSetting } from './utilities';
 
 export interface ISettings {
     cwd: string;
@@ -91,11 +91,6 @@ function resolveVariables(
 function getCwd(config: WorkspaceConfiguration, workspace: WorkspaceFolder): string {
     const cwd = config.get<string>('cwd', workspace.uri.fsPath);
     return resolveVariables([cwd], 'cwd', workspace)[0];
-}
-
-export function getInterpreterFromSetting(namespace: string, scope?: ConfigurationScope) {
-    const config = getConfiguration(namespace, scope);
-    return config.get<string[]>('interpreter');
 }
 
 export async function getWorkspaceSettings(

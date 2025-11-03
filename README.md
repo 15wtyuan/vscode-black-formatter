@@ -4,7 +4,7 @@
 
 A Visual Studio Code extension with support for the Black formatter. The extension ships with `black=24.8.0`.
 
-> Note: The minimum version of Black this extension supports is `22.3.0`.
+> Note: The minimum version of Black this extension supports is `25.1.0`.
 
 This extension includes support for all [actively supported versions](https://devguide.python.org/#status-of-python-branches) of the Python language.
 
@@ -32,6 +32,11 @@ The Black extension for Visual Studio Code provides formatting support for your 
     ```
 
 -   **Customize Black**: You can customize the behavior of Black by setting the `black-formatter.args` setting.
+
+-   **Keyboard Shortcuts**: The code formatting is available in Visual Studio Code through the following keyboard shortcuts:
+    - On Windows: Shift + Alt + F
+    - On Mac: Shift + Option + F
+    - On Linux: Ctrl + Shift + I
 
 ### Disabling formatting with Black
 
