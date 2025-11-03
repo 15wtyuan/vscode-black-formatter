@@ -1,8 +1,8 @@
+> Fork: 添加了支持使用制表符的设置
 # Formatter extension for Visual Studio Code using the Black formatter
 
-> Fork: 添加了支持使用制表符的设置
 
-A Visual Studio Code extension with support for the Black formatter. The extension ships with `black=24.8.0`.
+A Visual Studio Code extension with support for the Black formatter. The extension ships with `black=25.1.0`.
 
 > Note: The minimum version of Black this extension supports is `25.1.0`.
 
